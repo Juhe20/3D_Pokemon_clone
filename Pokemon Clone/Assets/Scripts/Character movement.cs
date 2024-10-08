@@ -2,11 +2,14 @@ using UnityEngine;
 
 public class CharacterMovement : MonoBehaviour
 {
+    public bool isRunning = false;
+    public GameObject Player;
     public CharacterController characterController; // Reference to the CharacterController
     public float speed = 5.0f; // Movement speed
 
-    void Update()
+    void FixedUpdate()
     {
+        Cursor.lockState = CursorLockMode.Locked;
         // Get input from WASD keys or arrow keys
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
@@ -17,6 +20,7 @@ public class CharacterMovement : MonoBehaviour
         // Check if there's any input
         if (direction.magnitude >= 0.1f)
         {
+            isRunning = true;
             // Get the main camera's forward and right directions
             Camera mainCamera = Camera.main;
             Vector3 cameraForward = mainCamera.transform.forward;
@@ -39,6 +43,10 @@ public class CharacterMovement : MonoBehaviour
             // Optional: Rotate the character to face the direction of movement
             Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
+        }
+        else
+        {
+            isRunning = false;
         }
     }
 }
