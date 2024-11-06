@@ -10,19 +10,19 @@ public class Encounter : MonoBehaviour
     private Vector3 playerPosition;
     private void OnTriggerStay(Collider other)
     {
-        if (character.isRunning == true)
-        {
-            if (Random.Range(1, 100) == 1)
-            {
-                playerPosition = character.Player.transform.position; 
-                isEncountered = true;
-                SceneManager.LoadScene("BattleScene");
-            }
-            else
-            {
-                isEncountered = false;
-            }
-        }
-        Debug.Log(isEncountered);
+        //if (character.isRunning == true)
+        //{
+        //    if (Random.Range(1, 100) == 1)
+        //    {
+        //        playerPosition = character.Player.transform.position; 
+        //        isEncountered = true;
+        //        SceneManager.LoadScene("BattleScene");
+        //    }
+        //    else
+        //    {
+        //        isEncountered = false;
+        //    }
+        //}
+        //Debug.Log(isEncountered);
     }
 }

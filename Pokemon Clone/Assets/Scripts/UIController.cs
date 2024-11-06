@@ -26,11 +26,11 @@ public class UIController : MonoBehaviour
 
     public void ShowTeam()
     {
-
+        Debug.Log("TestTeam");
     }
 
     public void ShowBag()
     {
-
+        Debug.Log("TestBag");
     }
 }
