@@ -2,14 +2,24 @@ using UnityEngine;
 
 public class CharacterMovement : MonoBehaviour
 {
-    public bool isRunning = false;
-    public GameObject Player;
-    public CharacterController characterController; // Reference to the CharacterController
-    public float speed = 5.0f; // Movement speed
+    public float speed = 5.0f; // Horizontal movement speed
+    public float gravity = -9.8f; // Gravity value (usually -9.8)
+    public float jumpHeight = 2.0f; // Jump height (optional, if you want jumping)
 
-    void FixedUpdate()
+    private CharacterController characterController; // Reference to the CharacterController
+    private Vector3 velocity; // Store current velocity (including gravity)
+
+    void Start()
     {
+        // Get the CharacterController component
+        characterController = GetComponent<CharacterController>();
+        characterController.stepOffset = 0.5f; // Adjust based on terrain size
         Cursor.lockState = CursorLockMode.Locked;
+
+    }
+
+    void Update()
+    {
         // Get input from WASD keys or arrow keys
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
@@ -17,10 +27,9 @@ public class CharacterMovement : MonoBehaviour
         // Create a direction vector based on input
         Vector3 direction = new Vector3(horizontalInput, 0, verticalInput).normalized;
 
-        // Check if there's any input
+        // Apply movement (no gravity on X and Z, only Y is affected by gravity)
         if (direction.magnitude >= 0.1f)
         {
-            isRunning = true;
             // Get the main camera's forward and right directions
             Camera mainCamera = Camera.main;
             Vector3 cameraForward = mainCamera.transform.forward;
@@ -37,16 +46,27 @@ public class CharacterMovement : MonoBehaviour
             // Calculate the desired move direction relative to the camera's orientation
             Vector3 moveDirection = cameraForward * direction.z + cameraRight * direction.x;
 
-            // Move the character
+            // Move the character horizontally (X and Z axes)
             characterController.Move(moveDirection * speed * Time.deltaTime);
+        }
 
-            // Optional: Rotate the character to face the direction of movement
-            Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
+        // Gravity and falling
+        if (characterController.isGrounded)
+        {
+            velocity.y = 0f; // Reset vertical velocity when grounded
+
+            // Optional: Handle jumping if needed
+            if (Input.GetButtonDown("Jump"))
+            {
+                velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity); // Jump if grounded
+            }
         }
         else
         {
-            isRunning = false;
+            velocity.y += gravity * Time.deltaTime; // Apply gravity when in the air
         }
+
+        // Apply the vertical velocity (Y-axis) to the character's movement
+        characterController.Move(velocity * Time.deltaTime);
     }
 }
