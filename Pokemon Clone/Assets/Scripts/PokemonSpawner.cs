@@ -8,7 +8,8 @@ public class PokemonSpawner : MonoBehaviour
     public Transform[] spawnLocations;
     void SpawnPokemon(string name, int health, int attack, int defense, string type, int speed)
     {
-        GameObject pokemonPrefab = pokemonPrefabs[Random.Range(0, pokemonPrefabs.Length)];
+        GameObject randomSpawn = pokemonPrefabs[Random.Range(0, pokemonPrefabs.Length)];
+
     }
 
 }

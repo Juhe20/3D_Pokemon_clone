@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class Encounter : MonoBehaviour
 {
-    public CharacterMovement character;
+    //public CharacterMovement character;
     private bool isEncountered = false;
     private Vector3 playerPosition;
     private void OnTriggerStay(Collider other)
