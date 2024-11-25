@@ -9,6 +9,7 @@ public class CharacterMovement : MonoBehaviour
     private CharacterController characterController;
     private Animator animator;
     private Vector3 velocity; // Tracks the player's current velocity
+    public bool inEvent = false;
 
     void Start()
     {
@@ -26,34 +27,37 @@ public class CharacterMovement : MonoBehaviour
 
     private void HandleMovement()
     {
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
-
-        Vector3 direction = new Vector3(horizontalInput, 0, verticalInput).normalized;
-
-        if (direction.magnitude >= 0.1f)
+        if (!inEvent)
         {
-            animator.SetBool("isRunning", true);
+            float horizontalInput = Input.GetAxis("Horizontal");
+            float verticalInput = Input.GetAxis("Vertical");
 
-            Camera mainCamera = Camera.main;
-            Vector3 cameraForward = mainCamera.transform.forward;
-            Vector3 cameraRight = mainCamera.transform.right;
+            Vector3 direction = new Vector3(horizontalInput, 0, verticalInput).normalized;
 
-            cameraForward.y = 0;
-            cameraRight.y = 0;
-            cameraForward.Normalize();
-            cameraRight.Normalize();
+            if (direction.magnitude >= 0.1f)
+            {
+                animator.SetBool("isRunning", true);
 
-            Vector3 moveDirection = cameraForward * direction.z + cameraRight * direction.x;
+                Camera mainCamera = Camera.main;
+                Vector3 cameraForward = mainCamera.transform.forward;
+                Vector3 cameraRight = mainCamera.transform.right;
 
-            Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10);
+                cameraForward.y = 0;
+                cameraRight.y = 0;
+                cameraForward.Normalize();
+                cameraRight.Normalize();
 
-            characterController.Move(moveDirection * speed * Time.deltaTime);
-        }
-        else
-        {
-            animator.SetBool("isRunning", false);
+                Vector3 moveDirection = cameraForward * direction.z + cameraRight * direction.x;
+
+                Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10);
+
+                characterController.Move(moveDirection * speed * Time.deltaTime);
+            }
+            else
+            {
+                animator.SetBool("isRunning", false);
+            }
         }
     }
 

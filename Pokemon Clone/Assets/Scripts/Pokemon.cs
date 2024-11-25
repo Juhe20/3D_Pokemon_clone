@@ -31,8 +31,9 @@ public class Pokemon : MonoBehaviour
     public int defense;
     public string type;
     public int speed;
+    public int level;
 
-    public void PokemonInitializer(string name, int health, int attack, int defense, string type, int speed)
+    public void PokemonInitializer(string name, int health, int attack, int defense, string type, int speed, int level)
     {
         this.name = name;
         this.health = health;
@@ -40,6 +41,6 @@ public class Pokemon : MonoBehaviour
         this.defense = defense;
         this.type = type;
         this.speed = speed;
-
+        this.level = level;
     }
 }

@@ -1,36 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class UIController : MonoBehaviour
 {
-    public GameObject Menu;
-    private bool menuActive = false;
+    public GameObject UI;
+    public TextMeshProUGUI textField;
 
-    void Update()
+    public void ShowText(string text)
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && menuActive)
-        {
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                Menu.SetActive(false);
-                menuActive = false;
-            }
-        }
-        else if (Input.GetKeyDown(KeyCode.Escape) && !menuActive)
-        {
-            Menu.SetActive(true);
-            menuActive = true;
-        }
+        textField.SetText(text);
+        UI.SetActive(true);
     }
-
-    public void ShowTeam()
+    public void HideText()
     {
-        Debug.Log("TestTeam");
-    }
-
-    public void ShowBag()
-    {
-        Debug.Log("TestBag");
+        UI.SetActive(false);
     }
 }
