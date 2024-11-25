@@ -1,16 +1,39 @@
 using UnityEngine;
+using Cinemachine;
 
 public class Doorcollision : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public Transform teleportPoint;
+    public Transform player;
+    public CinemachineFreeLook camera;
+
+    private void OnTriggerEnter(Collider other)
     {
-        
+        if (other.CompareTag("Player"))
+        {
+            var movementScript = other.GetComponent<CharacterController>();
+            if (movementScript != null)
+                movementScript.enabled = false;
+
+            TeleportPlayer();
+
+            if (movementScript != null)
+                movementScript.enabled = true;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void TeleportPlayer()
     {
-        
+        if (camera == null || teleportPoint == null || player == null)
+            return;
+
+        // Calculate the position delta for the warp
+        Vector3 positionDelta = teleportPoint.position - player.position;
+
+        // Teleport the player
+        player.position = teleportPoint.position;
+
+        // Notify Cinemachine about the warp
+        camera.OnTargetObjectWarped(player, positionDelta);
     }
 }
