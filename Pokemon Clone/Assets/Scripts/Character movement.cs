@@ -4,18 +4,17 @@ public class CharacterMovement : MonoBehaviour
 {
     public float speed = 5.0f; // Horizontal movement speed
     public float gravity = -9.8f; // Gravity value (usually -9.8)
-    public float jumpHeight = 2.0f; // Jump height (optional, if you want jumping)
-
     private CharacterController characterController; // Reference to the CharacterController
-    private Vector3 velocity; // Store current velocity (including gravity)
+    private Animator animator;
 
     void Start()
     {
         // Get the CharacterController component
         characterController = GetComponent<CharacterController>();
-        characterController.stepOffset = 0.5f; // Adjust based on terrain size
+        characterController.stepOffset = 0.1f;
         Cursor.lockState = CursorLockMode.Locked;
-
+        animator = GetComponent<Animator>();
+        animator.SetBool("isRunning", false);
     }
 
     void Update()
@@ -30,6 +29,8 @@ public class CharacterMovement : MonoBehaviour
         // Apply movement (no gravity on X and Z, only Y is affected by gravity)
         if (direction.magnitude >= 0.1f)
         {
+            animator.SetBool("isRunning", true);
+
             // Get the main camera's forward and right directions
             Camera mainCamera = Camera.main;
             Vector3 cameraForward = mainCamera.transform.forward;
@@ -46,27 +47,17 @@ public class CharacterMovement : MonoBehaviour
             // Calculate the desired move direction relative to the camera's orientation
             Vector3 moveDirection = cameraForward * direction.z + cameraRight * direction.x;
 
+            // Rotate the player to face the direction of movement
+            Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10);
+
             // Move the character horizontally (X and Z axes)
             characterController.Move(moveDirection * speed * Time.deltaTime);
         }
-
-        // Gravity and falling
-        if (characterController.isGrounded)
-        {
-            velocity.y = 0f; // Reset vertical velocity when grounded
-
-            // Optional: Handle jumping if needed
-            if (Input.GetButtonDown("Jump"))
-            {
-                velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity); // Jump if grounded
-            }
-        }
         else
         {
-            velocity.y += gravity * Time.deltaTime; // Apply gravity when in the air
+            animator.SetBool("isRunning", false);
         }
-
-        // Apply the vertical velocity (Y-axis) to the character's movement
-        characterController.Move(velocity * Time.deltaTime);
     }
+
 }
