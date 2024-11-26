@@ -3,14 +3,12 @@ using UnityEngine;
 
 public class PokemonSpawner : MonoBehaviour
 {
-    public GameObject[] pokemonPrefabs; // Array of Pokémon prefabs
-    public List<Bush> bushes;           // List of bushes
-    public float spawnRange = 5f;       // Range within which Pokémon can spawn
-    public Transform player;            // Reference to the player
-
+    public GameObject[] pokemonPrefabs;
+    public List<Bush> bushes;
+    public float spawnRange = 10f;
+    public Transform player;
     private Dictionary<Transform, GameObject> activePokemon = new Dictionary<Transform, GameObject>();
     private HashSet<Transform> visitedLocations = new HashSet<Transform>();
-
     void Start()
     {
         bushes = new List<Bush>(FindObjectsOfType<Bush>());
@@ -23,22 +21,19 @@ public class PokemonSpawner : MonoBehaviour
             foreach (var spawnLocation in bush.spawnLocations)
             {
                 float distance = Vector3.Distance(player.position, spawnLocation.position);
-
-                // Player is within range
                 if (distance <= spawnRange)
                 {
-                    if (!visitedLocations.Contains(spawnLocation)) // Only attempt once per entry
+                    if (!visitedLocations.Contains(spawnLocation))
                     {
-                        visitedLocations.Add(spawnLocation); // Mark as visited
-                        TrySpawnPokemon(spawnLocation);
+                        visitedLocations.Add(spawnLocation);
+                        SpawnPokemon(spawnLocation);
                     }
                 }
-                // Player is out of range
                 else
                 {
-                    if (visitedLocations.Contains(spawnLocation)) // Player has left range
+                    if (visitedLocations.Contains(spawnLocation))
                     {
-                        visitedLocations.Remove(spawnLocation); // Allow respawn attempt on re-entry
+                        visitedLocations.Remove(spawnLocation);
                         DespawnPokemonAtLocation(spawnLocation);
                     }
                 }
@@ -46,7 +41,7 @@ public class PokemonSpawner : MonoBehaviour
         }
     }
 
-    void TrySpawnPokemon(Transform spawnLocation)
+    void SpawnPokemon(Transform spawnLocation)
     {
         // 50% chance to spawn a Pokémon
         if (Random.value <= 0.5f)

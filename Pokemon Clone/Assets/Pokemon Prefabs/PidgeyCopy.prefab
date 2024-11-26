@@ -1,0 +1,181 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &5695618084676009927
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 460a1909e0741894b98ac69f5f01fe95, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.45
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 460a1909e0741894b98ac69f5f01fe95, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.45
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 460a1909e0741894b98ac69f5f01fe95, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.45
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 460a1909e0741894b98ac69f5f01fe95, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 56.068813
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 460a1909e0741894b98ac69f5f01fe95, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.36746502
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 460a1909e0741894b98ac69f5f01fe95, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 44.497143
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 460a1909e0741894b98ac69f5f01fe95, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 460a1909e0741894b98ac69f5f01fe95, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 460a1909e0741894b98ac69f5f01fe95, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 460a1909e0741894b98ac69f5f01fe95, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 460a1909e0741894b98ac69f5f01fe95, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 460a1909e0741894b98ac69f5f01fe95, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 460a1909e0741894b98ac69f5f01fe95, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 460a1909e0741894b98ac69f5f01fe95, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 460a1909e0741894b98ac69f5f01fe95, type: 3}
+      propertyPath: m_Name
+      value: PidgeyCopy
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 460a1909e0741894b98ac69f5f01fe95, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8386518448228414805}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 460a1909e0741894b98ac69f5f01fe95, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -5200004521152681909}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 460a1909e0741894b98ac69f5f01fe95, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7584510640689732978}
+  m_SourcePrefab: {fileID: 100100000, guid: 460a1909e0741894b98ac69f5f01fe95, type: 3}
+--- !u!1 &4885156178124489366 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 460a1909e0741894b98ac69f5f01fe95, type: 3}
+  m_PrefabInstance: {fileID: 5695618084676009927}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8386518448228414805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4885156178124489366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50c923437ad6dd14c8fef359199802f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pokemonName: Pidgey
+  health: 150
+  attack: 45
+  defense: 40
+  type: 16
+  speed: 56
+  gameObject: {fileID: 4885156178124489366}
+  playerMoves:
+  - moveName: Tackle
+    power: 40
+    pp: 35
+    moveType: 17
+    accuracy: 100
+  - moveName: Gust
+    power: 40
+    pp: 35
+    moveType: 16
+    accuracy: 100
+  enemyMovesPool:
+  - moveName: Gust
+    power: 40
+    pp: 35
+    moveType: 16
+    accuracy: 100
+  - moveName: Tackle
+    power: 40
+    pp: 35
+    moveType: 17
+    accuracy: 100
+  movesInBattle: []
+--- !u!54 &-5200004521152681909
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4885156178124489366}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
+--- !u!136 &7584510640689732978
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4885156178124489366}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.5, z: 0}

@@ -14,6 +14,8 @@ public class PokeballFlagCheck : MonoBehaviour
     public Transform playerPosition;
     public bool isPikachuRecieved = false;
     public GameObject Pikachu;
+    public PlayerTeam playerTeam;
+
 
     private void OnTriggerEnter(Collider other)
     {
@@ -29,18 +31,17 @@ public class PokeballFlagCheck : MonoBehaviour
         {
             playerTrigger = false;
             textDisplay.HideText();
-            isTextDisplayed = false;  // Reset flag when player leaves
+            isTextDisplayed = false;
         }
     }
 
     private void Update()
     {
-        if (playerTrigger && Input.GetKeyDown(KeyCode.Space) && !isTextDisplayed)
+        if (playerTrigger && Input.GetKeyDown(KeyCode.Space) && !isTextDisplayed && !isPikachuRecieved)
         {
             oakPosition.LookAt(playerPosition.transform.position);
             Player.SetBool("isRunning", false);
             proffessorOak.SetBool("isTalking", true);
-            // Player pressed space, show the text
             movement.inEvent = true;
             textDisplay.ShowText("The other trainers already picked their Pokémon so the only one left is this Pikachu!");
             isTextDisplayed = true;
@@ -53,14 +54,19 @@ public class PokeballFlagCheck : MonoBehaviour
         else if (isTextDisplayed && Input.GetKeyDown(KeyCode.Space) && dialoguePage == 2)
         {
             proffessorOak.SetBool("isTalking", false);
-            // Player pressed space again, hide the text
             movement.inEvent = false;
             textDisplay.HideText();
-            isTextDisplayed = false;  // Reset flag
+            isTextDisplayed = false;
             dialoguePage = 0;
             pokeball.SetActive(false);
             isPikachuRecieved = true;
             Pikachu.SetActive(true);
+            AddPikachuToTeam();
         }
+    }
+    private void AddPikachuToTeam()
+    {
+        Pokemon pikachu = Pikachu.GetComponent<Pokemon>();
+        playerTeam.AddPokemon(pikachu);
     }
 }

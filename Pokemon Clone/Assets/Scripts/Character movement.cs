@@ -2,25 +2,35 @@ using UnityEngine;
 
 public class CharacterMovement : MonoBehaviour
 {
-    public float speed = 5.0f; // Horizontal movement speed
-    public float gravity = -9.8f; // Gravity value
-    public LayerMask groundLayer; // Layer for ground objects
+    public float speed = 5.0f;
+    public float gravity = -9.8f;
+    public LayerMask groundLayer;
 
     private CharacterController characterController;
     private Animator animator;
-    private Vector3 velocity; // Tracks the player's current velocity
+    private Vector3 velocity;
     public bool inEvent = false;
+    public Encounter encounter;
 
     void Start()
     {
         characterController = GetComponent<CharacterController>();
-        Cursor.lockState = CursorLockMode.Locked;
         animator = GetComponent<Animator>();
         animator.SetBool("isRunning", false);
     }
 
     void Update()
     {
+        if (!inEvent)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
         HandleMovement();
         ApplyGravity();
     }
@@ -63,19 +73,13 @@ public class CharacterMovement : MonoBehaviour
 
     private void ApplyGravity()
     {
-        // Check if the player is grounded
         bool isGrounded = characterController.isGrounded;
 
         if (isGrounded && velocity.y < 0)
         {
-            // Reset vertical velocity when grounded
-            velocity.y = -2f; // Small value to keep the player "stuck" to the ground
+            velocity.y = -2f;
         }
-
-        // Apply gravity to the velocity
         velocity.y += gravity * Time.deltaTime;
-
-        // Apply the velocity to the player
         characterController.Move(velocity * Time.deltaTime);
     }
 }

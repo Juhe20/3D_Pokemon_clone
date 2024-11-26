@@ -58,37 +58,19 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3d13886f2da66b5438de631ef8e48979, type: 3}
       insertIndex: -1
-      addedObject: {fileID: -2008538190370538338}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3d13886f2da66b5438de631ef8e48979, type: 3}
-      insertIndex: -1
       addedObject: {fileID: -6336104479281615752}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3d13886f2da66b5438de631ef8e48979, type: 3}
       insertIndex: -1
       addedObject: {fileID: -2451813156741168137}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3d13886f2da66b5438de631ef8e48979, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -588073791783977507}
   m_SourcePrefab: {fileID: 100100000, guid: 3d13886f2da66b5438de631ef8e48979, type: 3}
 --- !u!1 &4778359802764687765 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 3d13886f2da66b5438de631ef8e48979, type: 3}
   m_PrefabInstance: {fileID: 5661391133532898500}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &-2008538190370538338
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4778359802764687765}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50c923437ad6dd14c8fef359199802f1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  name: Pikachu
-  health: 35
-  attack: 55
-  defense: 30
-  type: Electric
-  speed: 90
 --- !u!54 &-6336104479281615752
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -112,9 +94,9 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!136 &-2451813156741168137
 CapsuleCollider:
@@ -131,7 +113,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -139,3 +121,21 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!114 &-588073791783977507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4778359802764687765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2483167d0d774e449c852edd6f4f836, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teleportPoint: {fileID: 0}
+  player: {fileID: 0}
+  camera: {fileID: 0}
+  speed: 2
+  pokemonPrefab: {fileID: 4778359802764687765, guid: b5c020c089aa3de4296285381b186107, type: 3}
+  inBattle: 0
