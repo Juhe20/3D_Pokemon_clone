@@ -7,6 +7,8 @@ public class UIController : MonoBehaviour
 {
     public GameObject UI;
     public TextMeshProUGUI textField;
+    public GameObject HealUI;
+    public TextMeshProUGUI healText;
 
     public void ShowText(string text)
     {
@@ -16,5 +18,14 @@ public class UIController : MonoBehaviour
     public void HideText()
     {
         UI.SetActive(false);
+    }
+    public void ShowHealText(string text)
+    {
+        healText.SetText(text);
+        HealUI.SetActive(true);
+    }
+    public void HideHealText()
+    {
+        HealUI.SetActive(false);
     }
 }

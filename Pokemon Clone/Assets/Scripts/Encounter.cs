@@ -17,6 +17,7 @@ public class Encounter : MonoBehaviour
     private BattleManager battleManager;
     private Vector3 originalPlayerPosition;
 
+
     private void Start()
     {
         GameObject findPlayer = GameObject.FindWithTag("Player");
@@ -38,9 +39,9 @@ public class Encounter : MonoBehaviour
             ChasePlayer();
         }
     }
-
     public void StoreOriginalPosition()
     {
+        Debug.Log("Storing original position...");
         PlayerPrefs.SetFloat("OriginalPlayerPosX", player.position.x);
         PlayerPrefs.SetFloat("OriginalPlayerPosY", player.position.y);
         PlayerPrefs.SetFloat("OriginalPlayerPosZ", player.position.z);
@@ -57,22 +58,33 @@ public class Encounter : MonoBehaviour
             originalPlayerPosition = new Vector3(x, y, z);
         }
     }
+    public void ClearStoredPosition()
+    {
+        PlayerPrefs.DeleteKey("OriginalPlayerPosX");
+        PlayerPrefs.DeleteKey("OriginalPlayerPosY");
+        PlayerPrefs.DeleteKey("OriginalPlayerPosZ");
+        PlayerPrefs.Save();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
+            if (!HasAvailablePokemon())
+            {
+                Debug.Log("Player has no available Pokémon! Encounter canceled.");
+                return;
+            }
             var movementScript = other.GetComponent<CharacterController>();
             movementScript.enabled = false;
-            if (PlayerPrefs.GetFloat("OriginalPlayerPosX", -1f) == -1f)
-            {
-                StoreOriginalPosition();
-            }
+            originalPlayerPosition = player.position;
+            StoreOriginalPosition(); 
             TeleportPlayer();
             movementScript.enabled = true;
             GameObject instance = Instantiate(pokemonPrefab, player.position, Quaternion.identity);
             instance.transform.position = new Vector3(player.position.x + 15f, player.position.y - 0.1f, player.position.z);
             instance.transform.LookAt(player.position);
+            instance.transform.SetParent(GameObject.Find("PokemonParent").transform);
             inBattle = true;
             Pokemon enemyPokemon = instance.GetComponent<Pokemon>();
             Pokemon playerPokemon = player.GetComponent<PlayerTeam>().GetFirstAvailablePokemon();
@@ -80,18 +92,21 @@ public class Encounter : MonoBehaviour
         }
     }
 
+
     public void ReturnToOriginalPosition()
     {
         RetrieveOriginalPosition();
+
         var movementScript = player.GetComponent<CharacterController>();
         movementScript.enabled = false;
         player.position = originalPlayerPosition;
         Vector3 positionOffset = player.position - originalPlayerPosition;
         camera.OnTargetObjectWarped(player, positionOffset);
         camera.ForceCameraPosition(player.position, camera.transform.rotation);
-
         movementScript.enabled = true;
+        ClearStoredPosition();
     }
+
     public void TeleportPlayer()
     {
         player.position = teleportPoint.position;
@@ -115,5 +130,25 @@ public class Encounter : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
         transform.position += direction * speed * Time.deltaTime;
     }
+    private bool HasAvailablePokemon()
+{
+    PlayerTeam playerTeam = player.GetComponent<PlayerTeam>();
+    if (playerTeam == null)
+    {
+        Debug.LogError("PlayerTeam component not found on the player!");
+        return false;
+    }
+
+    foreach (var pokemon in playerTeam.team)
+    {
+        if (pokemon.health > 0)
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 
 }

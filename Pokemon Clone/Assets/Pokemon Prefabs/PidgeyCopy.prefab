@@ -100,6 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pokemonName: Pidgey
+  maxHealth: 150
   health: 150
   attack: 45
   defense: 40
@@ -128,7 +129,6 @@ MonoBehaviour:
     pp: 35
     moveType: 17
     accuracy: 100
-  movesInBattle: []
 --- !u!54 &-5200004521152681909
 Rigidbody:
   m_ObjectHideFlags: 0

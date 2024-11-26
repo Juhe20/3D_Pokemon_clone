@@ -7,6 +7,7 @@ TagManager:
   - OneWayObject
   - Camera
   - BattleScene
+  - SpawnPoint
   layers:
   - Default
   - TransparentFX

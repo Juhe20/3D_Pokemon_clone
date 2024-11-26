@@ -26,6 +26,7 @@ public class Pokemon : MonoBehaviour
     }
 
     public string pokemonName;
+    public int maxHealth;
     public int health;
     public int attack;
     public int defense;
@@ -36,9 +37,10 @@ public class Pokemon : MonoBehaviour
     public List<Move> enemyMovesPool = new List<Move>();
 
 
-    public void PokemonInitializer(string name, int health, int attack, int defense, Types type, int speed, GameObject gameobject, List<Move> playerMoves, List<Move> enemyMovesPool)
+    public void PokemonInitializer(string name, int maxHealth, int health, int attack, int defense, Types type, int speed, GameObject gameobject, List<Move> playerMoves, List<Move> enemyMovesPool)
     {
         this.pokemonName = name;
+        this.maxHealth = maxHealth;
         this.health = health;
         this.attack = attack;
         this.defense = defense;

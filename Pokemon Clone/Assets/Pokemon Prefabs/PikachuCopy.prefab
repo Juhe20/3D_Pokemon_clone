@@ -84,6 +84,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pokemonName: Pikachu
+  maxHealth: 150
   health: 150
   attack: 55
   defense: 30
@@ -122,7 +123,6 @@ MonoBehaviour:
     pp: 30
     moveType: 16
     accuracy: 100
-  movesInBattle: []
 --- !u!54 &-6336104479281615752
 Rigidbody:
   m_ObjectHideFlags: 0

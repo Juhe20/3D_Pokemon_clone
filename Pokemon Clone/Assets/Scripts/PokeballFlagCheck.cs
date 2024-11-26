@@ -6,7 +6,7 @@ public class PokeballFlagCheck : MonoBehaviour
     public UIController textDisplay;
     private bool playerTrigger;
     public CharacterMovement movement;
-    private bool isTextDisplayed = false;
+    public bool isTextDisplayed = false;
     private int dialoguePage = 1;
     public Animator proffessorOak;
     public Animator Player;

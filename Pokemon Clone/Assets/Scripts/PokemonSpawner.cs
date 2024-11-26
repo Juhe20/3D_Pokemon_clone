@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,6 +10,9 @@ public class PokemonSpawner : MonoBehaviour
     public Transform player;
     private Dictionary<Transform, GameObject> activePokemon = new Dictionary<Transform, GameObject>();
     private HashSet<Transform> visitedLocations = new HashSet<Transform>();
+    private float battleCooldown = 2f;
+    private bool battleEnded = true;
+    private float cooldownTimer = 0f;
     void Start()
     {
         bushes = new List<Bush>(FindObjectsOfType<Bush>());
@@ -16,60 +20,76 @@ public class PokemonSpawner : MonoBehaviour
 
     void Update()
     {
-        foreach (var bush in bushes)
+        if (!battleEnded)
         {
-            foreach (var spawnLocation in bush.spawnLocations)
+            cooldownTimer -= Time.deltaTime;
+            if (cooldownTimer <= 0f)
             {
-                float distance = Vector3.Distance(player.position, spawnLocation.position);
-                if (distance <= spawnRange)
+                battleEnded = true; // Allow Pokémon spawning again
+            }
+        }
+        if (battleEnded)
+        {
+            foreach (var bush in bushes)
+            {
+                foreach (var spawnLocation in bush.spawnLocations)
                 {
-                    if (!visitedLocations.Contains(spawnLocation))
+                    float distance = Vector3.Distance(player.position, spawnLocation.position);
+                    if (distance <= spawnRange)
                     {
-                        visitedLocations.Add(spawnLocation);
-                        SpawnPokemon(spawnLocation);
+                        if (!visitedLocations.Contains(spawnLocation))
+                        {
+                            visitedLocations.Add(spawnLocation);
+                            SpawnPokemon(spawnLocation);
+                        }
                     }
-                }
-                else
-                {
-                    if (visitedLocations.Contains(spawnLocation))
+                    else
                     {
-                        visitedLocations.Remove(spawnLocation);
-                        DespawnPokemonAtLocation(spawnLocation);
+                        if (visitedLocations.Contains(spawnLocation))
+                        {
+                            visitedLocations.Remove(spawnLocation);
+                            DespawnPokemonAtLocation(spawnLocation);
+                        }
                     }
                 }
             }
         }
+
     }
 
     void SpawnPokemon(Transform spawnLocation)
     {
-        // 50% chance to spawn a Pokémon
         if (Random.value <= 0.5f)
         {
             SpawnPokemonNearBush(spawnLocation);
         }
     }
+    public void EndBattle()
+    {
+        battleEnded = false;
+        cooldownTimer = battleCooldown;  // Start cooldown timer
+        StartCoroutine(BattleEndCooldown());
+    }
 
     void SpawnPokemonNearBush(Transform spawnLocation)
     {
-        // Instantiate a random Pokémon prefab
-        GameObject spawnedPokemon = Instantiate(
-            pokemonPrefabs[Random.Range(0, pokemonPrefabs.Length)],
-            spawnLocation.position,
-            Quaternion.identity
-        );
-
-        // Track the spawned Pokémon
+        GameObject spawnedPokemon = Instantiate(pokemonPrefabs[Random.Range(0, pokemonPrefabs.Length)], spawnLocation.position, Quaternion.identity);
+        spawnedPokemon.transform.SetParent(GameObject.Find("PokemonParent").transform);
         activePokemon[spawnLocation] = spawnedPokemon;
     }
 
     void DespawnPokemonAtLocation(Transform spawnLocation)
     {
-        // Destroy the Pokémon GameObject
         if (activePokemon.TryGetValue(spawnLocation, out GameObject pokemon))
         {
             Destroy(pokemon);
             activePokemon.Remove(spawnLocation);
         }
+    }
+    private IEnumerator BattleEndCooldown()
+    {
+        // Wait for the cooldown to finish
+        yield return new WaitForSeconds(battleCooldown);
+        battleEnded = true; // Allow Pokémon spawning again
     }
 }
